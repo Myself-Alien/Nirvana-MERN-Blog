@@ -1,0 +1,56 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+.logo {
+  text-decoration: none !important;
+  text-transform: capitalize;
+  color: inherit;
+  display: inline-block; /* Ensures proper styling */
+  transition: none !important; /* Prevents unnecessary animations */
+}
+.logo h1 {
+  margin: 0; /* Ensures no extra spacing */
+}
+.top_logo {
+  background-color: #ffb433 !important;
+  font-size: 24px;
+  font-weight: bold;
+}
+.bg {
+  background-color: #80cbc4;
+}
+.container p {
+  margin-bottom: 0rem !important;
+}
+.footer {
+  background-color: #b4ebe6;
+}
+.footer span {
+  text-align: center;
+  display: block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.login_box {
+  background-color: #80cbc4;
+  border-radius: 6px;
+  padding: 10px;
+}
+.login_bg {
+  background-color: #b4ebe6;
+  height: 100vh;
+  width: 100%;
+}
+.admin_text {
+  font-size: 15px;
+  background-color: #000;
+  color: #fff;
+  padding: 2px;
+}
+.description::first-letter {
+  text-transform: uppercase;
+  font-size: 2em; /* Slightly larger */
+  font-weight: bold;
+  line-height: 1; /* Ensures no extra spacing */
+  margin-right: 2px; /* Adds slight spacing for better look */
+}
