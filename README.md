@@ -14,14 +14,9 @@ A simple and user-friendly blog application built with **MERN Stack** (MongoDB, 
 
 ---
 
-## 🚀 Live Demo  
-🔗 **[Live URL (if deployed)](https://your-deployment-link.com)**  
-
----
-
 ## 🛠️ Installation & Setup  
 
 ### 1️⃣ Clone the Repository  
 ```bash
-git clone https://github.com/yourusername/mern-blog.git
-cd mern-blog
+git clone https://github.com/Myself-Alien/Nirvana-MERN-Blog.git
+cd Nirvana-MERN-Blog
