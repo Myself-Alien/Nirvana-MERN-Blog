@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
 import Footer from "./Footer";
@@ -57,7 +57,6 @@ const Home = () => {
                 {/* Shows only a short preview */}
                 <Link to={`/blog/${blog._id}`}>
                   <button className="btn btn-primary mt-2">Read More...</button>{" "}
-                  {/* Read More button */}
                 </Link>
               </div>
             </div>
