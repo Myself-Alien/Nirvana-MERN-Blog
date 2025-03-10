@@ -3,6 +3,7 @@ import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import Home from "./pages/Home"; 
 import BlogDetails from "./pages/BlogDetails"; 
+import ScrollToTop from "./pages/ScrollToTop";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/blog/:id" element={<BlogDetails />} />
       </Routes>
+      <ScrollToTop />
     </Router>
   );
 }

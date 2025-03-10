@@ -59,3 +59,15 @@ body {
   line-height: 1; /* Ensures no extra spacing */
   margin-right: 2px; /* Adds slight spacing for better look */
 }
+.ScrollToTop {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  padding: 10px;
+  font-size: 26px;
+  background: #b4ebe6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
