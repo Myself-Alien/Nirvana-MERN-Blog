@@ -1,5 +1,8 @@
+/* CSS for the entire application */
 body {
-  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif !important;
 }
 .logo {
   text-decoration: none !important;
@@ -15,6 +18,7 @@ body {
   background-color: #ffb433 !important;
   font-size: 24px;
   font-weight: bold;
+  border-bottom: 5px solid #b4ebe6;
 }
 .bg {
   background-color: #80cbc4;
@@ -23,7 +27,8 @@ body {
   margin-bottom: 0rem !important;
 }
 .footer {
-  background-color: #b4ebe6;
+  background-color: #ffb433;
+  border-top: 5px solid #b4ebe6;
 }
 .footer span {
   text-align: center;
