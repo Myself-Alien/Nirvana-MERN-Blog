@@ -27,8 +27,9 @@ const Home = () => {
                     <img
                       src={`http://localhost:5000${blog.image}`}
                       alt={blog.title}
-                      className="img-fluid"
-                      style={{ cursor: "pointer" }} // Makes it look clickable
+                      className="blog-thumbnail"
+                      loading="lazy" // ✅ Lazy load each blog image
+                      style={{ maxWidth: "100%", height: "auto" }}
                     />
                   )}
                 </Link>
@@ -55,8 +56,11 @@ const Home = () => {
                     : "No description available"}
                 </p>
                 {/* Shows only a short preview */}
-                <Link to={`/blog/${blog._id}`}>
-                  <button className="btn btn-primary mt-2">Read More...</button>{" "}
+                <Link
+                  to={`/blog/${blog.slug}`}
+                  className="read-more btn btn-primary"
+                >
+                  Read More
                 </Link>
               </div>
             </div>

@@ -1,31 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import Footer from "./Footer";
 import TopPanel from "./TopPanel";
 
 const BlogDetails = () => {
-  const { id } = useParams(); // Get blog ID from URL
+  const { slug } = useParams(); // ✅ Ensure slug is captured correctly
   const [blog, setBlog] = useState(null);
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  console.log("Slug from URL:", slug); // ✅ Debugging output
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/blogs/${id}`)
+    if (!slug) {
+      setError("Invalid slug.");
+      setLoading(false);
+      return;
+    }
+
+    axios
+      .get(`http://localhost:5000/api/blogs/${slug}`)
       .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch blog");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setBlog(data);
+        console.log("API Response:", res.data); // ✅ Debug API response
+        setBlog(res.data);
         setLoading(false);
       })
       .catch((err) => {
-        setError(err.message);
+        console.error("Error fetching blog:", err);
+        setError("Blog not found.");
         setLoading(false);
       });
-  }, [id]);
+  }, [slug]);
 
   if (loading) return <h2>Loading...</h2>;
   if (error) return <h2>Error: {error}</h2>;
@@ -33,7 +39,7 @@ const BlogDetails = () => {
 
   return (
     <div className="container-fluid g-0">
-    <TopPanel />
+      <TopPanel />
       <div className="container mt-4 mb-4">
         <h1>{blog.title}</h1>
         <p>
@@ -48,6 +54,8 @@ const BlogDetails = () => {
             src={`http://localhost:5000${blog.image}`}
             alt={blog.title}
             width="100%"
+            loading="lazy" // ✅ Enables lazy loading
+            style={{ maxWidth: "100%", height: "auto" }} // Responsive optimization
           />
         )}
         <p className="description">

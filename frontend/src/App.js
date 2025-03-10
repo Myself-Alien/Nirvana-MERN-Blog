@@ -12,7 +12,7 @@ function App() {
         <Route path="/" element={<Home />} /> 
         <Route path="/admin" element={<Admin />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/blog/:id" element={<BlogDetails />} />
+        <Route path="/blog/:slug" element={<BlogDetails />} />
       </Routes>
       <ScrollToTop />
     </Router>

@@ -26,8 +26,18 @@ mongoose.connect("mongodb://127.0.0.1:27017/blogDB")
     description: String,
     author: String,
     image: String,
-    createdAt: { type: Date, default: Date.now }, // Saves the timestamp when created
+    slug: { type: String, unique: true }, // ✅ Add slug field
+    createdAt: { type: Date, default: Date.now },
   });
+  
+  // Function to generate slug from title
+  const generateSlug = (title) => {
+    return title
+      .toLowerCase()
+      .replace(/ /g, "-")
+      .replace(/[^\w-]+/g, "");
+  };
+  
   
 
 const Blog = mongoose.model("Blog", BlogSchema);
@@ -45,11 +55,23 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Create Blog Post API with Image Upload
+const slugify = (title) => {
+  return title.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, "");
+};
+
 app.post("/api/blogs", upload.single("image"), async (req, res) => {
   try {
     const { title, description, author } = req.body;
+    const slug = generateSlug(title); // ✅ Generate slug from title
+    const existingBlog = await Blog.findOne({ slug });
+
+    if (existingBlog) {
+      return res.status(400).json({ message: "A blog with this title already exists!" });
+    }
+
     const imagePath = req.file ? `/uploads/${req.file.filename}` : "";
-    const newBlog = new Blog({ title, description, author, image: imagePath });
+    const newBlog = new Blog({ title, description, author, image: imagePath, slug });
+    
     await newBlog.save();
     res.status(201).json({ message: "Blog added successfully!", blog: newBlog });
   } catch (error) {
@@ -67,17 +89,18 @@ app.get("/api/blogs", async (req, res) => {
   }
 });
 // ✅ Fetch a single blog by ID
-app.get("/api/blogs/:id", async (req, res) => {
+app.get("/api/blogs/:slug", async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
-    if (!blog) {
-      return res.status(404).json({ message: "Blog not found" });
-    }
+    const blog = await Blog.findOne({ slug: req.params.slug }); // ✅ Find by slug instead of ID
+    if (!blog) return res.status(404).json({ message: "Blog not found" });
+
     res.json(blog);
   } catch (error) {
-    res.status(500).json({ error: "Invalid blog ID format" });
+    res.status(500).json({ error: "Invalid blog slug" });
   }
 });
+
+
 
 
 // Delete Blog API
