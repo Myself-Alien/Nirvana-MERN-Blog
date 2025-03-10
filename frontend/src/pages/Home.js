@@ -22,7 +22,7 @@ const Home = () => {
           {blogs.map((blog) => (
             <div className="row pt-4 pb-2 p-3" key={blog._id}>
               <div className="col-md-4">
-                <Link to={`/blog/${blog._id}`}>
+                <Link to={`/blog/${blog.slug}`}>
                   {blog.image && (
                     <img
                       src={`http://localhost:5000${blog.image}`}
@@ -37,7 +37,7 @@ const Home = () => {
               <div className="col-md-8">
                 <h2>
                   <Link
-                    to={`/blog/${blog._id}`}
+                    to={`/blog/${blog.slug}`}
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     {blog.title}

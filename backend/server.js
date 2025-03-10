@@ -18,7 +18,7 @@ if (!fs.existsSync("uploads")) {
 }
 
 mongoose.connect("mongodb://127.0.0.1:27017/blogDB")
-  .then(() => console.log(chalk.bgRed.blue("Connected to MongoDB")))
+  .then(() => console.log(chalk.bgRed.blue("Server Connected to MongoDB")))
   .catch((err) => console.error("MongoDB connection error:", err));
 
   const BlogSchema = new mongoose.Schema({
@@ -61,23 +61,25 @@ const slugify = (title) => {
 
 app.post("/api/blogs", upload.single("image"), async (req, res) => {
   try {
-    const { title, description, author } = req.body;
-    const slug = generateSlug(title); // ✅ Generate slug from title
-    const existingBlog = await Blog.findOne({ slug });
+    const { title, description, author, category } = req.body;
+    const slug = generateSlug(title); // Generate slug from title
 
+    const existingBlog = await Blog.findOne({ slug });
     if (existingBlog) {
       return res.status(400).json({ message: "A blog with this title already exists!" });
     }
 
     const imagePath = req.file ? `/uploads/${req.file.filename}` : "";
-    const newBlog = new Blog({ title, description, author, image: imagePath, slug });
-    
+    const newBlog = new Blog({ title, description, author, category, image: imagePath, slug });
+
     await newBlog.save();
     res.status(201).json({ message: "Blog added successfully!", blog: newBlog });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
+
+
 
 // Fetch Blog Posts API
 app.get("/api/blogs", async (req, res) => {
@@ -91,12 +93,15 @@ app.get("/api/blogs", async (req, res) => {
 // ✅ Fetch a single blog by ID
 app.get("/api/blogs/:slug", async (req, res) => {
   try {
-    const blog = await Blog.findOne({ slug: req.params.slug }); // ✅ Find by slug instead of ID
-    if (!blog) return res.status(404).json({ message: "Blog not found" });
+    const blog = await Blog.findOne({ slug: req.params.slug }); // ✅ Find by slug
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
 
     res.json(blog);
   } catch (error) {
-    res.status(500).json({ error: "Invalid blog slug" });
+    console.error("Error fetching blog:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
