@@ -4,6 +4,7 @@ body {
   padding: 0;
   font-family: "Roboto", sans-serif !important;
 }
+
 .logo {
   text-decoration: none !important;
   text-transform: capitalize;
@@ -11,47 +12,53 @@ body {
   display: inline-block; /* Ensures proper styling */
   transition: none !important; /* Prevents unnecessary animations */
 }
+
 .logo h1 {
   margin: 0; /* Ensures no extra spacing */
 }
+
 .top_logo {
   background-color: #ffb433 !important;
   font-size: 24px;
   font-weight: bold;
   border-bottom: 5px solid #b4ebe6;
 }
-.bg {
-  background-color: #80cbc4;
-}
+
 .container p {
   margin-bottom: 0rem !important;
 }
+
 .footer {
   background-color: #ffb433;
   border-top: 5px solid #b4ebe6;
 }
+
 .footer span {
   text-align: center;
   display: block;
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
 .login_box {
   background-color: #80cbc4;
   border-radius: 6px;
   padding: 10px;
 }
+
 .login_bg {
   background-color: #b4ebe6;
   height: 100vh;
   width: 100%;
 }
+
 .admin_text {
   font-size: 15px;
   background-color: #000;
-  color: #fff;
+  color: #fff !important;
   padding: 2px;
 }
+
 .description::first-letter {
   text-transform: uppercase;
   font-size: 2em; /* Slightly larger */
@@ -59,6 +66,7 @@ body {
   line-height: 1; /* Ensures no extra spacing */
   margin-right: 2px; /* Adds slight spacing for better look */
 }
+
 .ScrollToTop {
   position: fixed;
   bottom: 15px;
@@ -70,4 +78,88 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+.blog-thumbnail
+{
+  border: 3px solid #ffb433;
+}
+
+/* 🌗 Light & Dark Mode Styles */
+.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dark-mode {
+  background-color: #121212 !important;
+  color: #ffffff;
+}
+
+/* 🌗 Light & Dark Mode Styles */
+.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dark-mode {
+  background-color: #121212 !important;
+  color: #ffffff;
+}
+
+/* Blog Title Fix */
+.light-mode h2 a, .light-mode h1 {
+  color: black !important;
+  text-decoration: none;
+}
+
+.dark-mode h2 a, .dark-mode h1 {
+  color: white !important;
+  text-decoration: none;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 25px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:checked + .slider::before {
+  transform: translateX(24px);
 }

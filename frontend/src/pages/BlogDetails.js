@@ -5,12 +5,13 @@ import Footer from "./Footer";
 import TopPanel from "./TopPanel";
 
 const BlogDetails = () => {
-  const { slug } = useParams(); // ✅ Ensure slug is captured correctly
+  const { slug } = useParams();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [likes, setLikes] = useState(0);
 
-  console.log("Slug from URL:", slug); // ✅ Debugging output
+  console.log("Slug from URL:", slug);
 
   useEffect(() => {
     if (!slug) {
@@ -22,8 +23,9 @@ const BlogDetails = () => {
     axios
       .get(`http://localhost:5000/api/blogs/${slug}`)
       .then((res) => {
-        console.log("API Response:", res.data); // ✅ Debug API response
+        console.log("API Response:", res.data);
         setBlog(res.data);
+        setLikes(res.data.likes || 0);
         setLoading(false);
       })
       .catch((err) => {
@@ -32,6 +34,16 @@ const BlogDetails = () => {
         setLoading(false);
       });
   }, [slug]);
+
+  const handleLike = () => {
+    setLikes(likes + 1);
+  };
+
+  const handleShare = () => {
+    const shareUrl = window.location.href;
+    navigator.clipboard.writeText(shareUrl);
+    alert("Link copied to clipboard! Share with friends.");
+  };
 
   if (loading) return <h2>Loading...</h2>;
   if (error) return <h2>Error: {error}</h2>;
@@ -54,13 +66,23 @@ const BlogDetails = () => {
             src={`http://localhost:5000${blog.image}`}
             alt={blog.title}
             width="100%"
-            loading="lazy" // ✅ Enables lazy loading
-            style={{ maxWidth: "100%", height: "auto" }} // Responsive optimization
+            loading="lazy"
+            style={{ maxWidth: "100%", height: "auto" }}
           />
         )}
         <p className="description">
           {blog.description.charAt(0).toUpperCase() + blog.description.slice(1)}
         </p>
+
+        {/* ❤️ Like & Share Buttons */}
+        <div className="d-flex gap-3 mt-3">
+          <button className="btn btn-primary" onClick={handleLike}>
+            ❤️ Like ({likes})
+          </button>
+          <button className="btn btn-secondary" onClick={handleShare}>
+            📤 Share
+          </button>
+        </div>
       </div>
       <Footer />
     </div>
